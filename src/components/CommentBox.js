@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 export class CommentBox extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       comment: '',
     };
   }
 
-  textareaHandler = (e) => {
+  textareaHandler = e => {
     this.setState({
       comment: e.target.value,
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-
+    console.log(this.props.saveComment);
+    this.props.saveComment(this.state.comment);
     this.setState({ comment: '' });
   };
 
@@ -49,4 +52,7 @@ export class CommentBox extends Component {
   }
 }
 
-export default CommentBox;
+export default connect(
+  null,
+  actions,
+)(CommentBox);
